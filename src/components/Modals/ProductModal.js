@@ -19,7 +19,7 @@ import { useSearchParams } from "react-router-dom";
 
 export default function ProductModal(props) {
   const [name, setName] = useState(props.name);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(props.image);
   const [buyPrice, setBuyPrice] = useState(props.buyPrice);
   const [sellPrice, setSellPrice] = useState(props.sellPrice);
   const [stock, setStock] = useState(props.stock);
@@ -27,7 +27,8 @@ export default function ProductModal(props) {
   const products = useSelector((state) => state.product.value);
   const dispatch = useDispatch();
 
-  let [searchParams, setSearchParams] = useSearchParams();
+  let [searchParams, _] = useSearchParams();
+  // Mode Add atau Edit
   let mode = searchParams.get("mode");
 
   const submitForm = (event) => {
@@ -42,16 +43,19 @@ export default function ProductModal(props) {
           isExist = true;
         }
       });
+      // Kondisi nama produk sama
       if (isExist) {
         alert("Produk Telah Terdaftar!");
       } else {
         const maxSize = 102.4;
         const imgSize = uploadedImg.size / 1024;
+        // Memastikan ukuran gambar maksimal 100KB
         if (imgSize > maxSize) {
-          alert("Ukuran maksimal gambar adalah 100kb!");
+          alert("Ukuran maksimal gambar adalah 100KB!");
         } else {
-          setImage(URL.createObjectURL(uploadedImg));
-          dispatch(addProduct({ name, image, buyPrice, sellPrice, stock }));
+          const tempImg = URL.createObjectURL(uploadedImg);
+          setImage(tempImg);
+          dispatch(addProduct({ name, image: tempImg, buyPrice, sellPrice, stock }));
         }
       }
     }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Modal,
   ModalOverlay,
@@ -17,10 +17,9 @@ import {
   Circle,
   Heading,
 } from "@chakra-ui/react";
-
 import { useSelector } from "react-redux";
-
 import { FaLock } from "react-icons/fa";
+
 import NotificationModal from "./NotificationModal";
 
 export default function AuthModal(props) {

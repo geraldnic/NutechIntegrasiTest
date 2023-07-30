@@ -21,32 +21,32 @@ const initialStateValue = [
     name: "Penghapus",
     image:
       "https://bimamedia-gurusiana.ap-south-1.linodeobjects.com/a305c17f85b99588ce35cb4e9cd6134f/2022/05/01/l-eb811799-3727-49a4-9390-0129b5f923e020220501102306.jpeg",
-    buyPrice: 1500,
-    sellPrice: 5000,
-    stock: 12,
+    buyPrice: 2000,
+    sellPrice: 6000,
+    stock: 15,
   },
   {
     name: "Pulpen",
     image:
       "https://i0.wp.com/pasyari.com/wp-content/uploads/2021/04/Pulpen-Pen-bolpoin-bolpen-Standard-AE7-0.5.png?fit=1001%2C1007&ssl=1",
-    buyPrice: 1500,
-    sellPrice: 5000,
-    stock: 12,
+    buyPrice: 3000,
+    sellPrice: 6500,
+    stock: 8,
   },
   {
     name: "Spidol",
     image: "https://static.bmdstatic.com/pk/product/medium/5ddf7a44bd8ff.jpg",
-    buyPrice: 1500,
-    sellPrice: 5000,
-    stock: 12,
+    buyPrice: 7000,
+    sellPrice: 12500,
+    stock: 20,
   },
   {
     name: "Rautan",
     image:
       "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//95/MTA-3445295/faber-castell_faber-castell-rautan-triangular_full02.jpg",
-    buyPrice: 1500,
-    sellPrice: 5000,
-    stock: 12,
+    buyPrice: 500,
+    sellPrice: 2000,
+    stock: 17,
   },
 ];
 

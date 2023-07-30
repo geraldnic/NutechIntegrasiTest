@@ -1,11 +1,4 @@
-import {
-  Flex,
-  Box,
-  Image,
-  useColorModeValue,
-  Text,
-  Button,
-} from "@chakra-ui/react";
+import { Flex, Box, Image, Text, Button } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import {
   decreaseStock,
@@ -18,9 +11,19 @@ import DeleteModal from "./Modals/DeleteModal";
 import ProductModal from "./Modals/ProductModal";
 import { Link } from "react-router-dom";
 import AuthModal from "./Modals/AuthModal";
+import { useSelector } from "react-redux";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 function ProductCard(props) {
   const dispatch = useDispatch();
+  const users = useSelector((state) => state.user.value);
+  let balance = 0;
+
+  users.map((user) => {
+    if (user.username === localStorage.getItem("username")) {
+      balance = user.balance;
+    }
+  });
 
   //Delete Modal
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -64,8 +67,16 @@ function ProductCard(props) {
     if (!localStorage.getItem("username")) {
       openAuthModal();
     } else {
-      dispatch(decreaseStock(props.name));
-      dispatch(decreaseBalance(props.sellPrice));
+      if (props.stock < 1) {
+        alert("Maaf, produk telah habis terjual!");
+      } else {
+        if (balance < props.sellPrice) {
+          alert("Saldo tidak cukup!");
+        } else {
+          dispatch(decreaseStock(props.name));
+          dispatch(decreaseBalance(props.sellPrice));
+        }
+      }
     }
   };
   return (
@@ -105,9 +116,20 @@ function ProductCard(props) {
           </Text>
           <Flex justifyContent="space-between" alignContent="center">
             <Box fontSize="2xl">
-              <Text fontWeight={"bold"} fontSize="lg">
-                Rp {props.sellPrice}
-              </Text>
+              {localStorage.getItem("username") === "admin" ? (
+                <>
+                  <Text fontWeight={"bold"} fontSize="lg">
+                    Harga Beli : Rp {props.buyPrice}
+                  </Text>
+                  <Text fontWeight={"bold"} fontSize="lg">
+                    Harga Jual : Rp {props.sellPrice}
+                  </Text>
+                </>
+              ) : (
+                <Text fontWeight={"bold"} fontSize="lg">
+                  Rp {props.sellPrice}
+                </Text>
+              )}
             </Box>
           </Flex>
         </Box>
@@ -119,11 +141,11 @@ function ProductCard(props) {
               </Button>
               <Link to={"?mode=edit"}>
                 <Button colorScheme="blue" mx={2} onClick={openEdit}>
-                  Edit
+                  <AiFillEdit />
                 </Button>
               </Link>
               <Button colorScheme="red" mx={2} onClick={openDelete}>
-                Delete
+                <AiFillDelete />
               </Button>
             </Box>
           ) : (
